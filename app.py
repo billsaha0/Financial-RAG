@@ -6,6 +6,7 @@ from llama_index.core import VectorStoreIndex, Settings
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.groq import Groq
+from llama_index.core.postprocessor import SentenceTransformerRerank
 
 load_dotenv()
 
@@ -22,10 +23,27 @@ def initialize_ai():
     Settings.llm = Groq(model="llama-3.3-70b-versatile", api_key=os.environ.get("GROQ_API_KEY"))
     
     client = qdrant_client.QdrantClient(path="./qdrant_db")
-    vector_store = QdrantVectorStore(client=client, collection_name="financial_reports")
+    vector_store = QdrantVectorStore(
+        client=client,
+        collection_name="financial_reports",
+        enable_hybrid=True
+        )
     
     index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
-    return index.as_chat_engine(chat_mode="condense_question", verbose=True)
+
+    reranker = SentenceTransformerRerank(
+        model="BAAI/bge-reranker-base", 
+        top_n=3
+    )
+
+    return index.as_chat_engine(
+        chat_mode="condense_question",
+        verbose=True,
+        vector_store_query_mode="hybrid",
+        similarity_top_k=10,
+        sparse_top_k=10,
+        node_postprocessors=[reranker]
+        )
 
 try:
     chat_engine = initialize_ai()

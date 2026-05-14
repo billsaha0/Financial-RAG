@@ -27,7 +27,11 @@ def create_vector_database():
     print(f"Document split into {len(nodes)} logical chunks.")
 
     client = qdrant_client.QdrantClient(path="./qdrant_db")
-    vector_store = QdrantVectorStore(client=client, collection_name="financial_reports")
+    vector_store = QdrantVectorStore(
+        client=client,
+        collection_name="financial_reports",
+        enable_hybrid=True
+        )
     
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
