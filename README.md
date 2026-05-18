@@ -10,7 +10,6 @@ Built with **Streamlit**, **LlamaIndex**, **Qdrant**, and **Groq (Llama 3)**.
 
 * Ask natural language questions about financial reports
 * Uses RAG (Retrieval-Augmented Generation) for grounded answers
-* Streaming responses for better UX
 * Source document citations
 * Local vector database using Qdrant
 * Fully free embedding model (HuggingFace BGE)
@@ -123,7 +122,3 @@ http://localhost:8501
 
 MIT License
 
----
-This project is a **learning + prototype system** for financial RAG.
-It demonstrates core concepts but is not yet production-ready.
----

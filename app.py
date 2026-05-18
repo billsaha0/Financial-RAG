@@ -37,7 +37,7 @@ def initialize_ai():
     )
 
     return index.as_chat_engine(
-        chat_mode="condense_question",
+        chat_mode="context",
         verbose=True,
         vector_store_query_mode="hybrid",
         similarity_top_k=10,
