@@ -13,6 +13,8 @@ Built with **Streamlit**, **LlamaIndex**, **Qdrant**, and **Groq (Llama 3)**.
 * Source document citations
 * Local vector database using Qdrant
 * Fully free embedding model (HuggingFace BGE)
+* Hybrid search (dense + sparse)
+* Reranking for better retrieval accuracy
 
 
 ---
@@ -100,8 +102,6 @@ http://localhost:8501
 
 ## Planned Improvements
 
-* Hybrid search (dense + keyword)
-* Reranking for better retrieval accuracy
 * Metadata filtering (company, year, section)
 * Improved chunking for financial structure
 * Better prompt control for numeric accuracy
